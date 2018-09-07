@@ -1,6 +1,7 @@
 [user]
     name               = YOURNAME YourFirstname
     email              = xxxxxxxxx@xxxxxxxxxxxx.xxxx
+    username           = xxxxxxxxx
 [alias]
     st                 = status
     ci                 = commit -v
@@ -16,8 +17,22 @@
     who                = shortlog -s -n --no-merges
     standup            = shortlog --since=yesterday
     today              = shortlog --since=midnight
+    changes            = diff-tree --no-commit-id --name-status -r HEAD
 [color]
-    ui                 = true
+    ui                 = auto
+[color "branch"]
+    current = yellow reverse
+    local = yellow
+    remote = green
+[color "diff"]
+    meta = yellow bold
+    frag = magenta bold
+    old = red bold
+    new = green bold
+[color "status"]
+    added = yellow
+    changed = green
+    untracked = cyan
 [core]
     autocrlf           = input
     excludesfile       = ~/.gitglobalexclude
@@ -31,3 +46,5 @@
     showUntrackedFiles = all
 [fetch]
     prune              = true
+[credential]
+    helper = cache
