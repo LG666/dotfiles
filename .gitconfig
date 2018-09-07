@@ -18,6 +18,9 @@
     standup            = shortlog --since=yesterday
     today              = shortlog --since=midnight
     changes            = diff-tree --no-commit-id --name-status -r HEAD
+    lint               = ! git status --porcelain | /bin/grep -e '^[AUM ][UM ].*\\.php$' | awk '{print $2}' | xargs --no-run-if-empty -L 1 php -l
+    php-cs-fixer       = ! git status --porcelain | /bin/grep -e '^[AUM ][UM ].*\\.php$' | awk '{print $2}' | xargs --no-run-if-empty -L 1 php $(which php-cs-fixer) fix --quiet
+    aliases            = config --get-regexp alias
 [color]
     ui                 = auto
 [color "branch"]
