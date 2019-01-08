@@ -18,8 +18,16 @@
     standup            = shortlog --since=yesterday
     today              = shortlog --since=midnight
     changes            = diff-tree --no-commit-id --name-status -r HEAD
-    lint               = ! git status --porcelain | /bin/grep -e '^[AUM ][UM ].*\\.php$' | awk '{print $2}' | xargs --no-run-if-empty -L 1 php -l
-    php-cs-fixer       = ! git status --porcelain | /bin/grep -e '^[AUM ][UM ].*\\.php$' | awk '{print $2}' | xargs --no-run-if-empty -L 1 php $(which php-cs-fixer) fix --quiet
+    lint               = ! git status --porcelain    | /bin/grep -e '^[AUM ][UM ].*\\.php$'       | awk '{print $2}' | xargs --no-run-if-empty -L 1 php -l
+    php-cs-fixer       = ! git status --porcelain    | /bin/grep -e '^[AUM ][UM ].*\\.php$'       | awk '{print $2}' | xargs --no-run-if-empty -L 1 php $(which php-cs-fixer) fix --quiet
+    lint-all           = ! git status --porcelain -u | /bin/grep -e '^[AUM\\? ][UM\\? ].*\\.php$' | awk '{print $2}' | xargs --no-run-if-empty -L 1 php -l
+    fix-all            = ! git status --porcelain -u | /bin/grep -e '^[AUM\\? ][UM\\? ].*\\.php$' | awk '{print $2}' | xargs --no-run-if-empty -L 1 php $(which php-cs-fixer) fix --quiet
+    cs                 = ! $(which phpcs)  -p --colors --standard=PSR2 `git status --porcelain    | /bin/grep -e '^[AUM ][UM ].*\\.php$'       | awk '{print $2}'`
+    cs-staged          = ! $(which phpcs)  -p --colors --standard=PSR2 `git status --porcelain    | /bin/grep -e '^[M ][M ].*\\.php$'          | awk '{print $2}'`
+    cs-new             = ! $(which phpcs)  -p --colors --standard=PSR2 `git status --porcelain -u | /bin/grep -e '^[\\? ][\\? ].*\\.php$'        | awk '{print $2}'`
+    cs-all             = ! $(which phpcs)  -p --colors --standard=PSR2 `git status --porcelain -u | /bin/grep -e '^[AUM\\? ][UM\\? ].*\\.php$' | awk '{print $2}'`
+    cbf                = ! $(which phpcbf) -p --colors --standard=PSR2 `git status --porcelain -u | /bin/grep -e '^[AUM\\? ][UM\\? ].*\\.php$' | awk '{print $2}'`
+    fix                = ! git php-cs-fixer
     aliases            = config --get-regexp alias
 [color]
     ui                 = auto
