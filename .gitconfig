@@ -29,6 +29,7 @@
     cbf                = ! $(which phpcbf) -p --colors --standard=PSR2 `git status --porcelain -u | /bin/grep -e '^[AUM\\? ][UM\\? ].*\\.php$' | awk '{print $2}'`
     chk-dump           = ! git status --porcelain -u | /bin/grep -e '^[AUM\\? ][UM\\? ].*\\.php$' | awk '{print $2}' | xargs --no-run-if-empty -L 1 egrep -nH --color 'var_export|dump|var_dump|print_r'
     fix                = ! git php-cs-fixer
+    gone               = "!f() { git fetch --all --prune; git branch -vv | awk '/: gone]/{print $1}' | xargs -r git branch -D; }; f"
     aliases            = config --get-regexp alias
 [color]
     ui                 = auto
